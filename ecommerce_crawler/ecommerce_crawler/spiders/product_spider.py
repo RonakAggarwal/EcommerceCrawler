@@ -24,7 +24,7 @@ class EcommerceCrawler(scrapy.Spider):
         # setting up Selenium Webdriver
         try:
             chrome_options = Options()
-            chrome_options.add_argument("--headless")
+            chrome_options.add_argument("--headless")  #Runing Chrome without opening a window
             chrome_options.add_argument("--disable-gpu")
             chrome_options.add_argument("window-size=1920x1080")
 
@@ -48,7 +48,7 @@ class EcommerceCrawler(scrapy.Spider):
     def parse_collections(self, response):
         # Handling javascript infinite scrolling
         self.driver.get(response.url)
-        time.sleep(3)
+        time.sleep(3) #Waiting for collections page to load
 
         try:
             last_height = self.driver.execute_script("return document.body.scrollHeight")
@@ -67,9 +67,6 @@ class EcommerceCrawler(scrapy.Spider):
             selectors = [f'a[href*="/{keyword}/"]::attr(href)' for keyword in PRODUCT_LIST]
             css_selector = ", ".join(selectors)
             product_links = sel.css(css_selector).getall()
-            # product_links = sel.css('a[href*="/product/"]::attr(href), a[href*="/products/"]::attr(href), '
-            #                              'a[href*="/item/"]::attr(href), a[href*="/items/"]::attr(href), '
-            #                              'a[href*="/p/"]::attr(href)').getall()
 
             for link in product_links:
                 product_url = response.urljoin(link.strip())

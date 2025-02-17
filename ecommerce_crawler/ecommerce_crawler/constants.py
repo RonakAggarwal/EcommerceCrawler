@@ -1,5 +1,3 @@
-from enum import Enum
-
 CRAWLER_NAME = 'ecommerce_crawler'
 COLLECTION_LIST = ["collection", "collections", "category", "categories", "shop"]
 PRODUCT_LIST = ["product", "products", "item", "items", "p"]
